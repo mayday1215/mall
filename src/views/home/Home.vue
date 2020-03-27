@@ -14,9 +14,6 @@
         <!--BS滚动区域-->
         <div class="wrap" ref="wrap">
             <div class="content">
-
-
-
                 <!--轮播图-->
                 <home-swiper :banners="banners"></home-swiper>
                 <!--精品推荐区域-->
@@ -46,7 +43,7 @@
   import HomeRecommend from "./children/HomeRecommend";
   import HomeFashion from "./children/HomeFashion";
   import TabControl from "../../components/tabcontrol/TabControl";
-  import GoodsList from "../../components/goodslist/GoodsList";
+  import GoodsList from "./children/GoodsList";
   import BScroll from "better-scroll";
 
   export default {
@@ -79,6 +76,14 @@
       this.getGoodsList("pop",1)
       this.getGoodsList("new",1)
       this.getGoodsList("sell",1)
+    },
+    destroyed(){
+    },
+    activated(){
+      // console.log('组件离开前')
+    },
+    deactivated(){
+      // console.log('组件回来前')
     },
     mounted(){
       this.bscroll = new BScroll(this.$refs.wrap,{

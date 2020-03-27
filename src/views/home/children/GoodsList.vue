@@ -1,6 +1,9 @@
 <template>
     <div class="goods-list">
-        <div class="goods-list-item" v-for="(item,index) in goods" :key="index">
+        <div class="goods-list-item"
+             v-for="(item,index) in goods"
+             :key="index"
+             @click="goProdcutInfo(item.iid)">
             <img :src="item.show.img" @load="imgLoad">
             <div class="info">
                 <p>{{item.title}}</p>
@@ -35,6 +38,15 @@
       //处理滚动bug
       imgLoad(){
         this.bscroll.refresh()
+      },
+      //跳转到商品详情页面
+      goProdcutInfo(id){
+        this.$router.push({
+          path:"/productInfo",
+          query:{
+            id:id
+          }
+        })
       }
     }
   }

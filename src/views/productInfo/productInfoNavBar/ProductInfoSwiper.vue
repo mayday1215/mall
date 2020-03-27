@@ -1,10 +1,8 @@
 <template>
     <div class="my-swiper">
-        <swiper ref="mySwiper" :options="swiperOptions">
-            <swiper-slide v-for="(item,index) in banners" :key="index">
-                <a :href="item.link">
-                    <img :src="item.image" alt="">
-                </a>
+        <swiper ref="mySwiper" class="swiperBox" :options="swiperOptions">
+            <swiper-slide v-for="(item,index) in swiperArr" :key="index">
+                <img :src="item" alt="">
             </swiper-slide>
 
             <div class="swiper-pagination" slot="pagination"></div>
@@ -15,19 +13,18 @@
 <script>
   import {Swiper, SwiperSlide, directive} from 'vue-awesome-swiper'
   import 'swiper/css/swiper.css'
-
   export default {
-    name: "HomeSwiper",
+    name: "ProductInfoSwiper",
     components: {Swiper, SwiperSlide},
-    props: {
-      banners: {
-        type: Array,
-        default() {
+    props:{
+      swiperArr:{
+        type:Array,
+        default(){
           return []
         }
       }
     },
-    data() {
+    data(){
       return {
         swiperOptions: {
           pagination: {
@@ -39,19 +36,28 @@
           loop: true
         }
       }
-    },
-
+    }
   }
 </script>
 
 <style scoped>
-    .my-swiper img {
-        width: 100%;
-        height: 100%;
-    }
+.my-swiper{
+    margin-top: 44px;
+}
+.swiperBox{
+    width: 100vw;
+    height: 300px;
+}
+.my-swiper{
+    /*height: 400px;*/
+    /*background: red;*/
+}
+.my-swiper img {
+    width: 100%;
+    /*height: 100%;*/
+}
 
-    .swiper-container {
-        --swiper-theme-color: #fff;
-    }
-
+.swiper-container {
+    --swiper-theme-color: #fff;
+}
 </style>

@@ -8,6 +8,7 @@ const Home = () => import("../views/home/Home")
 const Category = () => import("views/category/Category")
 const Cart = () => import("views/cart/Cart")
 const User = () => import("views/user/User")
+const ProductInfo = () => import("views/productInfo/ProductInfo")
 
 const router = new VueRouter({
   mode:'history',
@@ -31,6 +32,10 @@ const router = new VueRouter({
     {
       path:'/user',
       component:User,
+    },
+    {
+      path:'/productInfo',
+      component:ProductInfo,
     }
   ]
 })
