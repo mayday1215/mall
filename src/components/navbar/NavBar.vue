@@ -26,6 +26,10 @@
         text-align: center;
         line-height: 44px;
         box-shadow: 0 1px 1px rgba(100,100,100,.2);
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 999;
     }
     .nav-bar .left{
         width: 60px;
