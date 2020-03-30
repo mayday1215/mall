@@ -4,13 +4,7 @@
             <div slot="left" @click="$router.back()">
                 <img src="~assets/img/common/back.svg" alt="">
             </div>
-            <div slot="center" class="center">
-                <div v-for="(item,index) in title" :key="index"
-                     class="item"
-                     :class="{active:activeFlag === index}"
-                     @click="itemClick(index)"
-                >{{item}}</div>
-            </div>
+            <div slot="center" class="center">商品详情</div>
         </nav-bar>
     </div>
 </template>
@@ -38,10 +32,11 @@
 
 <style scoped>
     .pro-info-nav .center{
-        display: flex;
+        /*display: flex;*/
+        text-align: center;
     }
     .pro-info-nav .center .item{
-        flex: 1;
+        /*flex: 1;*/
         font-size: 13px;
     }
     .active{

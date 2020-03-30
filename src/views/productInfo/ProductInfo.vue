@@ -2,6 +2,7 @@
     <div class="product-info">
         <!--头部导航-->
         <product-info-nav-bar></product-info-nav-bar>
+        <!--中间滚动区域-->
         <div class="wrap" ref="wrap">
             <div class="content">
                 <!--轮播图-->
@@ -17,8 +18,8 @@
 
             </div>
         </div>
-
-
+        <!--底部导航-->
+        <product-info-bottom-bar @addToCart="addToCart"></product-info-bottom-bar>
     </div>
 </template>
 
@@ -29,14 +30,17 @@
   import ProductInfoShop from "./productInfoNavBar/ProductInfoShop";
   import ProductInfoShowImages from "./productInfoNavBar/ProductInfoShowImages";
   import ProductInfoParam from "./productInfoNavBar/ProductInfoParam";
+  import ProductInfoBottomBar from "./productInfoNavBar/ProductInfoBottomBar";
   import BScroll from "better-scroll"
 
   export default {
     name: "ProductInfo",
     components: {
       ProductInfoParam,
-      ProductInfoShowImages, ProductInfoSwiper, ProductInfoNavBar, ProductInfoMessage, ProductInfoShop},
+      ProductInfoShowImages, ProductInfoSwiper,
+      ProductInfoNavBar, ProductInfoMessage, ProductInfoShop,ProductInfoBottomBar
 
+    },
     data() {
       return {
         proInfoId: null,//商品id
@@ -44,18 +48,18 @@
         banners: null,
         //商品信息
         productInfo: {
-            title: '', //商品标题
-            newPrice:
-              '',//新的价格
-            oldPrice:
-              '',//旧价格
-            discountDesc:
-              '',//折扣
-            columns:
-              '',//销量等等
-            services:
-              '',//服务相关
-          },
+          title: '', //商品标题
+          newPrice:
+            '',//新的价格
+          oldPrice:
+            '',//旧价格
+          discountDesc:
+            '',//折扣
+          columns:
+            '',//销量等等
+          services:
+            '',//服务相关
+        },
         //商家信息
         shop: {
           logo: '', //头像
@@ -74,11 +78,21 @@
 
         },
         //商品图片展示区域
-        showImgs:[],
+        showImgs: [],
         //参数信息
-        params:{
-          info:[], //产品参数
-          rule:[] //产品尺码
+        params: {
+          info: [], //产品参数
+          rule: [] //产品尺码
+        },
+        //加入购物车数据
+        cart:{
+          image:'',
+          title:'',
+          desc:'',
+          price:'',
+          iid:'',
+          count:1,
+          isChecked:true
         }
       }
     },
@@ -90,6 +104,24 @@
       this.banners = new BScroll(this.$refs.wrap, {click: true})
     },
     methods: {
+      addToCart(){
+        this.$toast("加入成功")
+        this.cart.image = this.swiperArr[0]  //购物车展示图片
+        this.cart.title = this.productInfo.title //购物车标题
+        this.cart.desc = this.productInfo.desc //购物车描述
+        this.cart.price = this.productInfo.lowNowPrice //购物车价格
+        this.cart.iid = this.proInfoId //购物车id
+        this.cart.count = 1
+        //
+        console.log(this.cart)
+        this.$store.commit('updateCartData',this.cart)
+
+
+
+        // this.$store.commit('updateCartData',1)
+
+
+      },
       //获取商品详情数据
       getProductInfoData() {
         this.request({
@@ -110,6 +142,8 @@
           this.productInfo.discountBgColor = data.itemInfo.discountBgColor
           this.productInfo.columns = data.columns
           this.productInfo.services = data.shopInfo.services
+          this.productInfo.lowNowPrice = data.itemInfo.lowNowPrice
+          this.productInfo.desc = data.itemInfo.desc
 
           //赋值上商家信息
           this.shop.logo = data.shopInfo.shopLogo;
@@ -121,7 +155,7 @@
           this.shop.shopUrl = data.shopInfo.shopUrl
 
           //赋值商品图片
-          this.showImgs=data.detailInfo.detailImage[0].list
+          this.showImgs = data.detailInfo.detailImage[0].list
 
           //产品参数赋值
           this.params.info = data.itemParams.info.set
@@ -142,7 +176,8 @@
 
     .wrap {
         /*background-color: red;*/
-        height: calc(100vh - 44px);
+        height: calc(100vh - 102px);
+        background-color: #fff;
     }
 
 </style>
